@@ -3,25 +3,41 @@ import React from "react"
 
 class Header extends React.Component {
   state = {
-    locationInput: "Helsinki, Finland",
+    locationInput: "",
     guestsInput: "",
     expanded: false,
     locationActive: false,
     guestsActive: false,
+    nbAdults: 0,
+    nbChildren: 0,
   }
+  baseState = this.state
 
   expandHeader = () => {
     this.setState({ expanded: true })
   }
+  contractHeader = () => {
+    this.setState({ expanded: false })
+  }
   expandLocation = () => {
-    this.setState({ locationActive: true })
+    this.setState({ locationActive: true, guestsActive: false })
+  }
+  expandGuests = () => {
+    this.setState({ locationActive: false, guestsActive: true })
   }
 
   render() {
     return (
-      <div>
+      <React.Fragment>
         <header style={this.state.expanded ? { display: "none" } : { display: "flex" }}>
-          <h1>windbnb</h1>
+          <h1
+            onClick={() => {
+              this.props.reset()
+              this.setState(this.baseState)
+            }}
+          >
+            windbnb
+          </h1>
           <form>
             <input
               onClick={this.expandHeader}
@@ -38,7 +54,13 @@ class Header extends React.Component {
               id="guests"
               name="guests"
               placeholder="Add guests"
-              value={this.state.guestsInput}
+              value={
+                this.state.nbAdults + this.state.nbChildren === 0
+                  ? ""
+                  : this.state.nbAdults + this.state.nbChildren === 1
+                  ? this.state.nbAdults + this.state.nbChildren + " guest"
+                  : this.state.nbAdults + this.state.nbChildren + " guests"
+              }
               onChange={e => this.setState({ guestsInput: e.target.value })}
             />
             <input type="submit" value=" " />
@@ -48,6 +70,7 @@ class Header extends React.Component {
         <div
           className="overlay overlay-gray"
           style={this.state.expanded ? { display: "block" } : { display: "none" }}
+          onClick={this.contractHeader}
         ></div>
         <div
           className="overlay overlay-white"
@@ -57,7 +80,7 @@ class Header extends React.Component {
           className="expanded-header"
           style={this.state.expanded ? { display: "block" } : { display: "none" }}
         >
-          <form>
+          <form onSubmit={this.props.onFormSubmit} autoComplete="off">
             <label htmlFor="location">
               location
               <input
@@ -67,7 +90,10 @@ class Header extends React.Component {
                 id="location"
                 placeholder="Search location"
                 value={this.state.locationInput}
-                onChange={e => this.setState({ locationInput: e.target.value })}
+                onChange={e => {
+                  this.setState({ locationInput: e.target.value })
+                  // this.onLocationChange(e)
+                }}
               />
             </label>
             <label htmlFor="guests">
@@ -78,18 +104,92 @@ class Header extends React.Component {
                 name="guests"
                 id="guests"
                 placeholder="Add guests"
-                value={this.state.guestsInput}
+                value={
+                  this.state.nbAdults + this.state.nbChildren === 0
+                    ? ""
+                    : this.state.nbAdults + this.state.nbChildren === 1
+                    ? this.state.nbAdults + this.state.nbChildren + " guest"
+                    : this.state.nbAdults + this.state.nbChildren + " guests"
+                }
                 onChange={e => this.setState({ guestsInput: e.target.value })}
               />
             </label>
             <label htmlFor="search">
-              <button>
+              <button type="submit" onClick={this.contractHeader}>
                 <i className="material-icons">search</i>Search
               </button>
             </label>
           </form>
+
+          <div className="controls">
+            <div className="location-list">
+              <ul>
+                {this.props.availableCities
+                  .filter(city =>
+                    city.toLowerCase().includes(this.state.locationInput.toLowerCase())
+                  )
+                  .map(city => (
+                    <li onClick={() => this.setState({ locationInput: city })}>
+                      <i className="material-icons">location_on</i> {city}
+                    </li>
+                  ))}
+              </ul>
+            </div>
+            <div className="guests-controls">
+              <div className="adults-counter">
+                <h5>Adults</h5>
+                <p>Ages 13 or above</p>
+                <div className="counter">
+                  <button
+                    onClick={() => {
+                      this.state.nbAdults === 0
+                        ? this.setState({ nbAdults: 0 })
+                        : this.setState({ nbAdults: this.state.nbAdults - 1 })
+                    }}
+                    className="minus"
+                  >
+                    <i className="material-icons">remove</i>
+                  </button>
+                  <span>{this.state.nbAdults}</span>
+                  <button
+                    onClick={() => {
+                      this.setState({ nbAdults: this.state.nbAdults + 1 })
+                    }}
+                    className="plus"
+                  >
+                    <i className="material-icons">add</i>
+                  </button>
+                </div>
+              </div>
+              <div className="children-counter">
+                <h5>Children</h5>
+                <p>Ages 2 - 12</p>
+                <div className="counter">
+                  <button
+                    onClick={() => {
+                      this.state.nbChildren === 0
+                        ? this.setState({ nbChildren: 0 })
+                        : this.setState({ nbChildren: this.state.nbChildren - 1 })
+                    }}
+                    className="minus"
+                  >
+                    <i className="material-icons">remove</i>
+                  </button>
+                  <span>{this.state.nbChildren}</span>
+                  <button
+                    onClick={() => {
+                      this.setState({ nbChildren: this.state.nbChildren + 1 })
+                    }}
+                    className="plus"
+                  >
+                    <i className="material-icons">add</i>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </React.Fragment>
     )
   }
 }

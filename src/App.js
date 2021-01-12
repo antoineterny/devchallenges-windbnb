@@ -1,4 +1,4 @@
-import { render } from "@testing-library/react"
+// import { render } from "@testing-library/react"
 import "./App.scss"
 import React from "react"
 import Header from "./components/Header"
@@ -24,10 +24,36 @@ class App extends React.Component {
       )
   }
 
+  onFormSubmit = e => {
+    e.preventDefault()
+    const reqCity = e.target[0].value.split(", ")[0]
+    const reqCountry = e.target[0].value.split(", ")[1]
+    const reqGuests = parseInt(e.target[1].value)
+
+    let selectedStays = this.state.stays
+    if (reqCountry) selectedStays = selectedStays.filter(stay => stay.country === reqCountry)
+    if (reqCity) {
+      selectedStays = selectedStays.filter(stay => stay.city === reqCity)
+      this.setState({ city: reqCity })
+    }
+    if (reqGuests) selectedStays = selectedStays.filter(stay => stay.maxGuests >= reqGuests)
+
+    this.setState({ displayedStays: selectedStays })
+  }
+
+  reset = () => {
+    this.setState({ displayedStays: this.state.stays, city: "" })
+  }
+
   render() {
     return (
       <div className="App">
-        <Header />
+        <Header
+          onLocationChange={this.onLocationChange}
+          availableCities={this.state.availableCities}
+          onFormSubmit={this.onFormSubmit}
+          reset={this.reset}
+        />
         <StaysList
           city={this.state.city ? this.state.city : "Finland"}
           stays={this.state.displayedStays}

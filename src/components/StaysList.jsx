@@ -19,7 +19,12 @@ const StaysList = props => {
               <div className="stay-card-description-left">
                 {stay.superHost ? <span className="super-host">super host</span> : null}
                 <span className="type">{stay.type}</span>
-                {stay.beds ? <span className="beds"> . {stay.beds} {stay.beds === 1 ? "bed" : "beds"}</span> : null}
+                {stay.beds ? (
+                  <span className="beds">
+                    {" "}
+                    . {stay.beds} {stay.beds === 1 ? "bed" : "beds"}
+                  </span>
+                ) : null}
               </div>
               <div className="stay-card-description-right">
                 <i className="material-icons">star</i> {stay.rating.toFixed(2)}
