@@ -1,0 +1,23 @@
+// $red: #EB5757;
+// $dark-grey: #333333;
+:root {
+  --red: #eb5757;
+  --dark-grey: #333333;
+  --light-grey: #f2f2f2;
+  --gray2: #4F4F4F;
+  --gray3: #828282;
+}
+
+body {
+  font-family: "Montserrat", sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  max-width: 1250px;
+  min-width: 375px;
+
+  padding: 32px;
+  margin: 0 auto;
+
+  color: var(--dark-grey);
+}

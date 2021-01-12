@@ -1,25 +1,40 @@
-import logo from './logo.svg';
-import './App.css';
+import { render } from "@testing-library/react"
+import "./App.scss"
+import React from "react"
+import Header from "./components/Header"
+import StaysList from "./components/StaysList"
 
-function App() {
-  return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
-  );
+class App extends React.Component {
+  state = { stays: [], city: "", displayedStays: [], availableCities: [] }
+
+  getCities = stays => {
+    let cities = []
+    stays.forEach(stay => {
+      const city = stay.city + ", " + stay.country
+      if (!cities.includes(city)) cities.push(city)
+    })
+    return cities
+  }
+
+  componentDidMount() {
+    fetch("stays.json")
+      .then(res => res.json())
+      .then(data =>
+        this.setState({ stays: data, displayedStays: data, availableCities: this.getCities(data) })
+      )
+  }
+
+  render() {
+    return (
+      <div className="App">
+        <Header />
+        <StaysList
+          city={this.state.city ? this.state.city : "Finland"}
+          stays={this.state.displayedStays}
+        />
+      </div>
+    )
+  }
 }
 
-export default App;
+export default App
