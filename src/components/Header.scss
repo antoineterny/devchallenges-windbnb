@@ -66,15 +66,15 @@ header {
 .overlay-white {
   height: 460px;
   background: white;
-  padding: 32px;
-  padding-top: 92px;
+  // padding: 32px;
+  // padding-top: 92px;
 }
 .expanded-header {
   position: fixed;
   z-index: 1;
-  width: 100%;
+  width: 1249px;
   height: 100px;
-  margin-top: 93px;
+  margin-top: 60px;
   form {
     display: flex;
     width: 100%;
@@ -159,7 +159,9 @@ header {
   .guests-controls {
     width: 33%;
     padding-left: 18px;
-    font-family: 'Mulish', sans-serif;
+    // puisque on masque l'autre control
+    transform: translateX(100%);
+    font-family: "Mulish", sans-serif;
     h5 {
       font-weight: bold;
       font-size: 14px;
@@ -200,6 +202,81 @@ header {
         text-align: center;
         font-weight: bold;
       }
+    }
+  }
+}
+
+.mobile-only {
+  display: none;
+}
+
+@media (max-width: 1330px) {
+  .expanded-header {
+    width: 822px;
+  }
+}
+@media (max-width: 903px) {
+  body {
+    padding: 18px 10px;
+  }
+  header form {
+    transform: translateX(16px);
+  }
+  .overlay-white {
+    height: 632px;
+  }
+  .expanded-header {
+    width: 395px;
+    height: 614px;
+    margin-top: 0;
+    form {
+      flex-direction: column;
+      height: 113px;
+    }
+    label {
+      box-sizing: border-box;
+      width: 395px;
+      border: none;
+    }
+    label:first-of-type {
+      border-bottom: 1px solid var(--light-grey);
+    }
+    label:last-of-type {
+      border: none;
+      position: absolute;
+      bottom: 24px;
+      margin: 0;
+      padding: 0;
+    }
+    input {
+      margin-top: 2px;
+    }
+  }
+  .controls {
+    .location-list {
+      width: 100%;
+    }
+    .guests-controls {
+      padding-left: 30px;
+      transform: none;
+    }
+  }
+  .mobile-only {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 16px;
+    color: var(--dark-grey);
+    p {
+      font-family: Mulish;
+      font-style: normal;
+      font-weight: bold;
+      font-size: 12px;
+      margin: 0;
+      padding: 0;
+    }
+    i {
+      cursor: pointer;
     }
   }
 }

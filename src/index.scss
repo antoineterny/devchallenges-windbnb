@@ -4,8 +4,9 @@
   --red: #eb5757;
   --dark-grey: #333333;
   --light-grey: #f2f2f2;
-  --gray2: #4F4F4F;
+  --gray2: #4f4f4f;
   --gray3: #828282;
+  --gray4: #a9a9a9;
 }
 
 body {
@@ -20,4 +21,15 @@ body {
   margin: 0 auto;
 
   color: var(--dark-grey);
+}
+
+@media (max-width: 1330px) {
+  body {
+    max-width: 822px;
+  }
+}
+@media (max-width: 903px) {
+  body {
+    max-width: 395px;
+  }
 }

@@ -38,13 +38,14 @@ class Header extends React.Component {
           >
             windbnb
           </h1>
-          <form>
+          <form onSubmit={this.props.onFormSubmit}>
             <input
               onClick={this.expandHeader}
               type="text"
               name="location"
               id="location"
               placeholder="Search location"
+              autoComplete="off"
               value={this.state.locationInput}
               onChange={e => this.setState({ locationInput: e.target.value })}
             />
@@ -54,6 +55,7 @@ class Header extends React.Component {
               id="guests"
               name="guests"
               placeholder="Add guests"
+              autoComplete="off"
               value={
                 this.state.nbAdults + this.state.nbChildren === 0
                   ? ""
@@ -76,10 +78,17 @@ class Header extends React.Component {
           className="overlay overlay-white"
           style={this.state.expanded ? { display: "block" } : { display: "none" }}
         ></div>
+
         <div
           className="expanded-header"
           style={this.state.expanded ? { display: "block" } : { display: "none" }}
         >
+          <div className="mobile-only">
+            <p>Edit your search</p>
+            <i className="material-icons" onClick={this.contractHeader}>
+              close
+            </i>
+          </div>
           <form onSubmit={this.props.onFormSubmit} autoComplete="off">
             <label htmlFor="location">
               location
@@ -89,6 +98,7 @@ class Header extends React.Component {
                 name="location"
                 id="location"
                 placeholder="Search location"
+                autoComplete="off"
                 value={this.state.locationInput}
                 onChange={e => {
                   this.setState({ locationInput: e.target.value })
@@ -104,6 +114,7 @@ class Header extends React.Component {
                 name="guests"
                 id="guests"
                 placeholder="Add guests"
+                autoComplete="off"
                 value={
                   this.state.nbAdults + this.state.nbChildren === 0
                     ? ""
@@ -122,7 +133,10 @@ class Header extends React.Component {
           </form>
 
           <div className="controls">
-            <div className="location-list">
+            <div
+              className="location-list"
+              style={this.state.locationActive ? { display: "block" } : { display: "none" }}
+            >
               <ul>
                 {this.props.availableCities
                   .filter(city =>
@@ -135,7 +149,10 @@ class Header extends React.Component {
                   ))}
               </ul>
             </div>
-            <div className="guests-controls">
+            <div
+              className="guests-controls"
+              style={this.state.guestsActive ? { display: "block" } : { display: "none" }}
+            >
               <div className="adults-counter">
                 <h5>Adults</h5>
                 <p>Ages 13 or above</p>

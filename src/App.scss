@@ -1,5 +1,15 @@
 .App {
   // position: relative;
-  margin: 0 auto;
   width: 100%;
+}
+
+footer {
+  margin: 100px auto 0;
+  width: 50%;
+  font-weight: 600;
+  font-size: 14px;
+  color: var(--gray4);
+  border-top: 1px solid #BDBDBD;
+  padding-top: 32px;
+  text-align: center;
 }

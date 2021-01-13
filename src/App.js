@@ -36,6 +36,9 @@ class App extends React.Component {
       selectedStays = selectedStays.filter(stay => stay.city === reqCity)
       this.setState({ city: reqCity })
     }
+    if (!reqCity) {
+      this.setState({ city: "" })
+    }
     if (reqGuests) selectedStays = selectedStays.filter(stay => stay.maxGuests >= reqGuests)
 
     this.setState({ displayedStays: selectedStays })
@@ -58,6 +61,7 @@ class App extends React.Component {
           city={this.state.city ? this.state.city : "Finland"}
           stays={this.state.displayedStays}
         />
+        <footer>Antoine Terny @ DevChallenges.io</footer>
       </div>
     )
   }
