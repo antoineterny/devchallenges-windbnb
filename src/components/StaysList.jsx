@@ -2,7 +2,6 @@ import "./StaysList.scss"
 import React from "react"
 
 const StaysList = props => {
-  console.log(props)
   return (
     <div className="stays-list">
       <div className="stays-list-title">

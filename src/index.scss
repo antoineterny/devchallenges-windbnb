@@ -15,7 +15,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
 
   max-width: 1250px;
-  min-width: 375px;
+  min-width: 355px;
 
   padding: 32px;
   margin: 0 auto;
@@ -31,5 +31,12 @@ body {
 @media (max-width: 903px) {
   body {
     max-width: 395px;
+    padding: 18px 10px;
+  }
+}
+@media (max-width: 450px) {
+  body {
+    box-sizing: border-box;
+    width: 355px;
   }
 }

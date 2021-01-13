@@ -65,8 +65,8 @@ class Header extends React.Component {
               }
               onChange={e => this.setState({ guestsInput: e.target.value })}
             />
-            <input type="submit" value=" " />
             <span className="material-icons">search</span>
+            <input type="submit" value=" " />
           </form>
         </header>
         <div

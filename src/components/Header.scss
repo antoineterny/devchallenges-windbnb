@@ -6,7 +6,6 @@ header {
   justify-content: space-between;
   align-items: center;
   margin-bottom: 38px;
-  transition: all 2s;
 
   h1 {
     text-indent: -9999px;
@@ -49,6 +48,7 @@ header {
       top: 17px;
       color: var(--red);
       cursor: pointer;
+      z-index: -1;
     }
   }
 }
@@ -216,8 +216,9 @@ header {
   }
 }
 @media (max-width: 903px) {
-  body {
-    padding: 18px 10px;
+  header {
+    height: 130px;
+    margin-bottom: 24px;
   }
   header form {
     transform: translateX(16px);
@@ -278,5 +279,22 @@ header {
     i {
       cursor: pointer;
     }
+  }
+}
+@media (max-width: 450px) {
+  header {
+    height: 130px;
+    margin-bottom: 24px;
+    form {
+      #location {
+        width: 106px;
+      }
+      #guests {
+        width: 74px;
+      }
+    }
+  }
+  .expanded-header {
+    width: 335px;
   }
 }
